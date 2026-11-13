@@ -1,0 +1,49 @@
+{
+  "description": "Pre-computed answers for the sample statement's quick-action prompts.",
+  "model": "gemini-3.5-flash-lite",
+  "generated_with": "deterministic-composer",
+  "sample_fingerprint": "cb5ee4ec0a3b00f0128121477115ddca1edba7482072f9c447be1acf5cbb44ef",
+  "responses": {
+    "audit my recurring subscriptions": {
+      "prompt": "Audit my recurring subscriptions",
+      "report": {
+        "answer": "I found 7 recurring monthly payments totalling £1,472.97 per month. NETFLIX.COM increased from £10.99 to £17.99 (+63.7%), an extra £84.00 a year.",
+        "tools_invoked": [
+          "detect_subscription_creep"
+        ],
+        "flagged_risks": [
+          "Subscription creep: NETFLIX.COM rose 63.7% (£10.99 -> £17.99)"
+        ],
+        "confidence_score": 0.95,
+        "requires_human_review": false
+      }
+    },
+    "check for duplicate or anomalous charges": {
+      "prompt": "Check for duplicate or anomalous charges",
+      "report": {
+        "answer": "Possible duplicate: UBER EATS charged £28.50 twice, 1.58 hours apart (2026-09-16 19:12 and 2026-09-16 20:47). Unusually large: CURRYS PC WORLD £899.00 on 11 Sep 2026, 6.64 standard deviations above your typical spend of £56.93.",
+        "tools_invoked": [
+          "detect_anomalies_and_duplicates"
+        ],
+        "flagged_risks": [
+          "Possible duplicate charge: UBER EATS £28.50 twice within 1.58 hours",
+          "Unusually large transaction: CURRYS PC WORLD £899.00 (z-score 6.64)"
+        ],
+        "confidence_score": 0.95,
+        "requires_human_review": true
+      }
+    },
+    "summarize my cash flow savings rate": {
+      "prompt": "Summarize my cash flow & savings rate",
+      "report": {
+        "answer": "Between 1 Aug 2026 and 30 Oct 2026 you received £8,671.40 and spent £6,410.15, leaving net cashflow of +£2,261.25, a savings rate of 26.1%.",
+        "tools_invoked": [
+          "get_cashflow_summary"
+        ],
+        "flagged_risks": [],
+        "confidence_score": 0.95,
+        "requires_human_review": false
+      }
+    }
+  }
+}

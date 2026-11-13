@@ -1,0 +1,5 @@
+# Runtime dependencies for the Vercel Python function (kept lean for cold starts).
+fastapi==0.162.5
+pydantic==2.14.3
+pandas==3.1.1
+google-genai==3.3.0

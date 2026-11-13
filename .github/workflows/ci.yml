@@ -1,0 +1,51 @@
+name: CI
+
+# Runs the offline test suite, the eval harness and a production build on every
+# push and pull request. Deployment is handled by Vercel's GitHub integration.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test (pytest, evals, Next.js build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python-version"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+
+      - name: Install Python dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run offline test suite (no API keys)
+        run: pytest -v
+
+      - name: Run offline evaluation harness
+        run: python evals/run_evals.py
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Verify Next.js builds cleanly
+        run: npm run build

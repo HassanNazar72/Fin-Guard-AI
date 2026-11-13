@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* Theme toggle sets data-theme on <html>; the media query covers no-JS / first paint. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  color-scheme: light;
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --card-2: #f7f8fa;
+  --ink: #0b0d12;
+  --ink-2: #474d5b;
+  --muted: #6b7180;
+  --line: #e4e6eb;
+  --accent: #0b0d12;
+  --accent-ink: #ffffff;
+  --focus: #2a78d6;
+
+  /* Status (reserved - always paired with an icon + label) */
+  --good: #0a7d0a;
+  --good-soft: #e7f5e7;
+  --warn: #9a6400;
+  --warn-soft: #fff4dc;
+  --bad: #c03030;
+  --bad-soft: #fdecec;
+
+  /* Categorical chart slots - fixed order, validated (CVD-safe adjacent pairs) */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #6250d6;
+  --series-other: #a3a7b0;
+  --grid: #eceef2;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0c0f;
+  --card: #15171c;
+  --card-2: #1b1e24;
+  --ink: #f2f3f5;
+  --ink-2: #c0c4cd;
+  --muted: #8d93a1;
+  --line: #272b33;
+  --accent: #f2f3f5;
+  --accent-ink: #0b0c0f;
+  --focus: #3987e5;
+  --good: #3fc23f;
+  --good-soft: #10261a;
+  --warn: #fab219;
+  --warn-soft: #2a2110;
+  --bad: #ef6b6b;
+  --bad-soft: #2c1414;
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-other: #5d626d;
+  --grid: #22252c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0b0c0f;
+    --card: #15171c;
+    --card-2: #1b1e24;
+    --ink: #f2f3f5;
+    --ink-2: #c0c4cd;
+    --muted: #8d93a1;
+    --line: #272b33;
+    --accent: #f2f3f5;
+    --accent-ink: #0b0c0f;
+    --focus: #3987e5;
+    --good: #3fc23f;
+    --good-soft: #10261a;
+    --warn: #fab219;
+    --warn-soft: #2a2110;
+    --bad: #ef6b6b;
+    --bad-soft: #2c1414;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --series-6: #008300;
+    --series-7: #9085e9;
+    --series-other: #5d626d;
+    --grid: #22252c;
+  }
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body {
+  font-feature-settings: "tnum" 1, "cv11" 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* In a layer so Tailwind utilities (e.g. focus-visible:outline-none) can override it. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.recharts-surface:focus,
+.recharts-wrapper:focus {
+  outline: none;
+}
